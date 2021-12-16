@@ -1,0 +1,181 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  color: #666666;
+  font-size: 1em;
+}
+
+.Navbar .Navbar-top {
+  width: 100%;
+  background-color: #dfdfdf;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.25em 1em;
+}
+
+.Navbar .Navbar-top .Navbar-avatar {
+  width: 3vw;
+  height: 3vw;
+}
+
+.Navbar .Navbar-bottom {
+  width: 100%;
+  background-color: #4b4b4b;
+  min-height: 30px;
+}
+
+.Navbar .Navbar-bottom .Navbar-bottom-btn {
+  color: #ffa639;
+  background: transparent;
+  border: none;
+  font-size: 1em;
+  margin: 0.5em 2em;
+  cursor: pointer;
+}
+
+.SearchGroup {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.SearchGroup .SearchGroup-con {
+  width: 97%;
+  max-width: 1440px;
+  border: 3px solid #666666;
+  border-radius: 10px;
+  margin: 0.45rem 0;
+}
+
+.SearchGroup .SearchGroup-con .SearchGroup-con-top {
+  min-height: 100px;
+  padding: 0.5em;
+}
+
+.SearchGroup .SearchGroup-con .SearchGroup-con-top label,
+.SearchGroup .SearchGroup-con .SearchGroup-con-top input,
+.SearchGroup .SearchGroup-con .SearchGroup-con-top select {
+  font-size: 1em;
+  padding: 0.25rem;
+}
+
+.SearchGroup .SearchGroup-con .SearchGroup-con-top select {
+  margin-right: 1em;
+}
+
+.SearchGroup .SearchGroup-con .SearchGroup-con-bottom {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.5em;
+}
+
+.SearchGroup .SearchGroup-con .SearchGroup-con-bottom .SearchGroup-con-bottom-btn {
+  font-size: 1em;
+  color: #666666;
+  background: white;
+  border: 1px solid #666666;
+  padding: 0.25em;
+  border-radius: 5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.SearchGroup .SearchGroupShowCharts {
+  width: 97%;
+  max-width: 1440px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.SearchGroup .SearchGroupShowCharts .SearchGroupShowCharts-btn {
+  font-size: 1em;
+  color: #666666;
+  background: white;
+  border: 1px solid #666666;
+  padding: 0.25em;
+  border-radius: 5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.TableGroup {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.TableGroup .TableGroup-con {
+  width: 97%;
+  max-width: 1440px;
+  overflow-y: scroll;
+}
+
+.TableGroup .TableGroup-con .Table {
+  min-width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #666666;
+  margin: 0.45rem 0;
+}
+
+.TableGroup .TableGroup-con .Table tr:nth-child(2n-1) {
+  background: #f3f3f3;
+}
+
+.TableGroup .TableGroup-con .Table tr th,
+.TableGroup .TableGroup-con .Table tr td {
+  color: black;
+  border: 1px solid transparent;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding: 0.5em 0.25em;
+}
+/*# sourceMappingURL=style.css.map */

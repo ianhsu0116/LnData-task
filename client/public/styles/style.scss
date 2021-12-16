@@ -1,0 +1,160 @@
+$fontColor: #666666;
+$activeColor: #ffa639;
+$fontSize: 1em;
+
+$width: 97%;
+$max-width: 1440px;
+
+// 清除預設
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: $fontColor;
+  font-size: $fontSize;
+}
+
+// 導覽列
+.Navbar {
+  .Navbar-top {
+    width: 100%;
+    background-color: rgb(223, 223, 223);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25em 1em;
+
+    // 頭像
+    .Navbar-avatar {
+      width: 3vw;
+      height: 3vw;
+    }
+  }
+
+  .Navbar-bottom {
+    width: 100%;
+    background-color: rgb(75, 75, 75);
+    min-height: 30px;
+
+    .Navbar-bottom-btn {
+      color: $activeColor;
+      background: transparent;
+      border: none;
+      font-size: $fontSize;
+      margin: 0.5em 2em;
+      cursor: pointer;
+    }
+  }
+}
+
+// 搜尋容器
+.SearchGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .SearchGroup-con {
+    width: $width;
+    max-width: $max-width;
+    border: 3px solid $fontColor;
+    border-radius: 10px;
+    margin: 0.45rem 0;
+
+    .SearchGroup-con-top {
+      min-height: 100px;
+      padding: 0.5em;
+
+      & label,
+      & input,
+      & select {
+        font-size: $fontSize;
+        padding: 0.25rem;
+      }
+
+      & select {
+        margin-right: 1em;
+      }
+    }
+
+    .SearchGroup-con-bottom {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5em;
+
+      .SearchGroup-con-bottom-btn {
+        font-size: $fontSize;
+        color: #666666;
+        background: white;
+        border: 1px solid #666666;
+        padding: 0.25em;
+        border-radius: 5px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+    }
+  }
+
+  // 搜尋下方的圖表按鈕區域
+  .SearchGroupShowCharts {
+    width: $width;
+    max-width: $max-width;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .SearchGroupShowCharts-btn {
+      font-size: $fontSize;
+      color: #666666;
+      background: white;
+      border: 1px solid #666666;
+      padding: 0.25em;
+      border-radius: 5px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  }
+}
+
+// table
+.TableGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .TableGroup-con {
+    width: $width;
+    max-width: $max-width;
+    overflow-y: scroll;
+    .Table {
+      min-width: 100%;
+      // max-width: $max-width;
+      border-collapse: collapse;
+      border: 2px solid $fontColor;
+      margin: 0.45rem 0;
+
+      // tr
+      & tr:nth-child(2n-1) {
+        background: rgb(243, 243, 243);
+      }
+
+      // th
+      & tr th,
+      & tr td {
+        color: black;
+        border: 1px solid transparent;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 0.5em 0.25em;
+      }
+    }
+  }
+}
