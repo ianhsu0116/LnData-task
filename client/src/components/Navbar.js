@@ -16,7 +16,10 @@ export const Navbar = () => {
         <IoPersonCircleOutline className="Navbar-avatar" />
       </div>
       <div className="Navbar-bottom">
-        <button className="Navbar-bottom-btn">Player List</button>
+        {/* <button className="Navbar-bottom-btn">Player List</button> */}
+        <Link to="/" className="Navbar-bottom-btn">
+          Player List
+        </Link>
       </div>
     </div>
   );

@@ -37,6 +37,8 @@ body {
 }
 
 .Navbar .Navbar-bottom .Navbar-bottom-btn {
+  text-decoration: none;
+  display: inline-block;
   color: #ffa639;
   background: transparent;
   border: none;
@@ -166,16 +168,73 @@ body {
   margin: 0.45rem 0;
 }
 
-.TableGroup .TableGroup-con .Table tr:nth-child(2n-1) {
+.TableGroup .TableGroup-con .Table .Table-tr:nth-child(2n-1) {
   background: #f3f3f3;
 }
 
-.TableGroup .TableGroup-con .Table tr th,
-.TableGroup .TableGroup-con .Table tr td {
+.TableGroup .TableGroup-con .Table .Table-th-large {
+  min-width: 200px;
+}
+
+.TableGroup .TableGroup-con .Table .Table-detail {
+  cursor: pointer;
+}
+
+.TableGroup .TableGroup-con .Table tr th {
+  font-size: 1.15em;
+  padding: 0.25em 0.5em;
+}
+
+.TableGroup .TableGroup-con .Table tr > th,
+.TableGroup .TableGroup-con .Table tr > td {
   color: black;
   border: 1px solid transparent;
   border-left: 1px solid black;
   border-right: 1px solid black;
-  padding: 0.5em 0.25em;
+  text-align: center;
+  padding: 0.25em 0.5em;
+}
+
+.Pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1em 0;
+}
+
+.Pagination .Pagination-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  list-style: none;
+}
+
+.Pagination .Pagination-group .Pagination-group-item {
+  text-decoration: none;
+  border: 1px solid #666666;
+  width: 2.5vw;
+  height: 2.5vw;
+  color: #666666;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+}
+
+.Pagination .Pagination-group .Pagination-group-itemActive {
+  background: #666666;
+  color: white;
 }
 /*# sourceMappingURL=style.css.map */

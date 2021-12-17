@@ -1,10 +1,40 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import DataService from "../services/data.service";
 
 export const SearchGroup = (props) => {
-  const [searchValue, setSearchValue] = useState({
-    team: "",
-    keywords: "",
-  });
+  const {
+    setTotalPages,
+    setCurrentData,
+    searchValue = {
+      team_name: "",
+      keywords: "",
+    },
+    setSearchValue,
+  } = props;
+
+  // const [searchValue, setSearchValue] = useState({
+  //   team_name: "",
+  //   keywords: "",
+  // });
+
+  // 當前拿到的所有資料
+  const [totalTeams, setTotalTeams] = useState([]);
+
+  // 初次render，跟DB拿取資料
+  useState(async () => {
+    // console.log(page);
+    // console.log(perPage);
+    try {
+      // 拿所有球隊名稱
+      let allTeams = await DataService.getAllTeams();
+
+      // 放入state
+      setTotalTeams(allTeams.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   // 即時抓取input更新
   const handleValueChange = (e) => {
@@ -12,8 +42,23 @@ export const SearchGroup = (props) => {
   };
 
   // 送出搜尋
-  const handleSearch = () => {
-    console.log(searchValue);
+  const handleSearch = async () => {
+    // console.log(searchValue);
+    const { keywords, team_name } = searchValue;
+
+    try {
+      let result = await DataService.search(searchValue);
+      //console.log(result);
+
+      // 放入state
+      setCurrentData(result.data.data);
+
+      // 計算總共需要幾頁
+      let { dataCount } = result.data.dataCount;
+      setTotalPages(Math.ceil(dataCount / 15));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -21,10 +66,13 @@ export const SearchGroup = (props) => {
       <div className="SearchGroup-con">
         <div className="SearchGroup-con-top">
           <label htmlFor="team">Team: </label>
-          <select name="team" id="team" onChange={handleValueChange}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+          <select name="team_name" id="team" onChange={handleValueChange}>
+            <option value="all">All</option>
+            {totalTeams.map((i, index) => (
+              <option key={index} value={i.team_name}>
+                {i.team_name}
+              </option>
+            ))}
           </select>
 
           <label htmlFor="keywords">Keywords: </label>

@@ -40,6 +40,8 @@ body {
     min-height: 30px;
 
     .Navbar-bottom-btn {
+      text-decoration: none;
+      display: inline-block;
       color: $activeColor;
       background: transparent;
       border: none;
@@ -142,19 +144,63 @@ body {
       margin: 0.45rem 0;
 
       // tr
-      & tr:nth-child(2n-1) {
+      .Table-tr:nth-child(2n-1) {
         background: rgb(243, 243, 243);
       }
 
-      // th
-      & tr th,
-      & tr td {
+      // 需要長一點的欄位
+      .Table-th-large {
+        min-width: 200px;
+      }
+
+      // 球員細節按鈕
+      .Table-detail {
+        cursor: pointer;
+      }
+
+      & tr th {
+        font-size: 1.15em;
+        padding: 0.25em 0.5em;
+      }
+
+      & tr > th,
+      & tr > td {
         color: black;
         border: 1px solid transparent;
         border-left: 1px solid black;
         border-right: 1px solid black;
-        padding: 0.5em 0.25em;
+        text-align: center;
+        padding: 0.25em 0.5em;
       }
+    }
+  }
+}
+
+// Pagination (分頁元件)
+.Pagination {
+  display: flex;
+  margin: 1em 0;
+  .Pagination-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+
+    .Pagination-group-item {
+      text-decoration: none;
+      border: 1px solid $fontColor;
+      width: 2.5vw;
+      height: 2.5vw;
+      color: $fontColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .Pagination-group-itemActive {
+      background: $fontColor;
+      color: white;
     }
   }
 }

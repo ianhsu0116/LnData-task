@@ -35,7 +35,7 @@ router.get("/search", async (req, res) => {
   let {
     name,
     team_name,
-    page = 0,
+    page = 1,
     perPage = 15,
     order_by = "points_per_game", // 根據哪個欄位排序
     order_type = "DESC", // 升冪 / 降冪
@@ -43,6 +43,8 @@ router.get("/search", async (req, res) => {
 
   // 將name變成模糊搜尋格式
   name = name ? `%${name}%` : undefined;
+  // 如果這次傳來的是all(等於不依照隊伍搜尋)，就變成undefined
+  team_name = team_name === "all" ? undefined : team_name;
 
   try {
     let result;
@@ -51,7 +53,7 @@ router.get("/search", async (req, res) => {
     if (team_name && name) {
       result = await connection.queryAsync(
         `SELECT * FROM players WHERE name LIKE ? AND team_name = ? ORDER BY ${order_by} ${order_type} LIMIT ? OFFSET ?`,
-        [name, team_name, Number(perPage), Number(page)]
+        [name, team_name, Number(perPage), (Number(page) - 1) * perPage]
       );
 
       // 計算總共有幾筆 (分頁用)
@@ -64,7 +66,7 @@ router.get("/search", async (req, res) => {
     else if (name) {
       result = await connection.queryAsync(
         `SELECT * FROM players WHERE name LIKE ? ORDER BY ${order_by} ${order_type} LIMIT ? OFFSET ?`,
-        [name, Number(perPage), Number(page)]
+        [name, Number(perPage), (Number(page) - 1) * perPage]
       );
 
       // 計算總共有幾筆 (分頁用)
@@ -77,7 +79,7 @@ router.get("/search", async (req, res) => {
     else if (team_name) {
       result = await connection.queryAsync(
         `SELECT * FROM players WHERE team_name = ? ORDER BY ${order_by} ${order_type} LIMIT ? OFFSET ?`,
-        [team_name, Number(perPage), Number(page)]
+        [team_name, Number(perPage), (Number(page) - 1) * perPage]
       );
 
       // 計算總共有幾筆 (分頁用)
@@ -100,7 +102,7 @@ router.get("/search", async (req, res) => {
 router.get("/", async (req, res) => {
   // 拿取當前頁碼及筆數
   let {
-    page = 0,
+    page = 1,
     perPage = 15,
     order_by = "points_per_game", // 根據哪個欄位排序
     order_type = "DESC", // 升冪 / 降冪
@@ -110,7 +112,7 @@ router.get("/", async (req, res) => {
     // 拿指定頁碼的資料
     let result = await connection.queryAsync(
       `SELECT * FROM players ORDER BY ${order_by} ${order_type} LIMIT ? OFFSET ?`,
-      [Number(perPage), Number(page)]
+      [Number(perPage), (Number(page) - 1) * perPage]
     );
 
     // 計算總共有幾筆 (分頁用)
