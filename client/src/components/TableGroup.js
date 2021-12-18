@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { SearchGroup } from "./SearchGroup";
 import { Pagination } from "./Pagination";
 import { Chart } from "./Chart";
 import DataService from "../services/data.service";
 import { BsSearch } from "react-icons/bs";
+import { RiArrowUpDownLine } from "react-icons/ri";
 
 export const TableGroup = (props) => {
   const { totalPages, setTotalPages, currentData, setCurrentData } = props;
+  const navigate = useNavigate();
 
   // 拿取pathname中的query值
   const search = useLocation().search;
@@ -16,6 +18,8 @@ export const TableGroup = (props) => {
   const perPage = new URLSearchParams(search).get("perPage") || 15;
   let team_name = new URLSearchParams(search).get("team_name") || "";
   const keywords = new URLSearchParams(search).get("keywords") || "";
+  const order_by = new URLSearchParams(search).get("order_by") || "";
+  const order_type = new URLSearchParams(search).get("order_type") || "";
 
   // 當前搜尋的關鍵字
   const [searchValue, setSearchValue] = useState({
@@ -29,11 +33,7 @@ export const TableGroup = (props) => {
   // 圖表需要的資料
   const [chartData, setChartData] = useState({});
 
-  // 初次render，跟DB拿取資料
-  useEffect(async () => {
-    window.addEventListener("click", (e) => setChartOpen(false));
-    // console.log(page);
-    // console.log(perPage);
+  const refreshFunction = async () => {
     try {
       let result;
 
@@ -41,10 +41,16 @@ export const TableGroup = (props) => {
       team_name = team_name === "all" ? undefined : team_name;
 
       //如果有搜尋條件 + 指定頁碼
-      if ((team_name || keywords) && page && perPage) {
+      if (
+        (team_name || keywords || order_by || order_type) &&
+        page &&
+        perPage
+      ) {
         result = await DataService.search({
-          team_name,
-          keywords,
+          team_name: team_name || "",
+          keywords: keywords || "",
+          order_by: order_by || "",
+          order_type: order_type || "",
           page,
           perPage,
         });
@@ -67,7 +73,29 @@ export const TableGroup = (props) => {
       console.log(error);
       console.log(error.response);
     }
+  };
+
+  // 偵測網址參數改變，跟DB拿取資料
+  useEffect(async () => {
+    window.addEventListener("click", (e) => setChartOpen(false));
+    refreshFunction();
   }, [page]);
+  // 偵測網址參數改變，跟DB拿取資料
+  useEffect(async () => {
+    refreshFunction();
+  }, [team_name]);
+  // 偵測網址參數改變，跟DB拿取資料
+  useEffect(async () => {
+    refreshFunction();
+  }, [keywords]);
+  // 偵測網址參數改變，跟DB拿取資料
+  useEffect(async () => {
+    refreshFunction();
+  }, [order_by]);
+  // 偵測網址參數改變，跟DB拿取資料
+  useEffect(async () => {
+    refreshFunction();
+  }, [order_type]);
 
   // 圖表打開時 傳入對應資料
   useEffect(async () => {
@@ -83,27 +111,31 @@ export const TableGroup = (props) => {
   // 點擊換頁
   const handleChangePage = async (pages) => {
     console.log(page);
-    // console.log(perPage);
-    // try {
-    //   let result;
-    //   if (searchValue.team_name || searchValue.keywords) {
-    //     let searchValue1 = {
-    //       team_name: searchValue.team_name,
-    //       keywords: searchValue.keywords,
-    //       page: page,
-    //       perPage: 15,
-    //     };
-    //     result = await DataService.search(searchValue1);
-    //     console.log(result);
-    //   } else {
-    //     result = await DataService.getData(page, perPage);
-    //   }
+  };
 
-    //   // 放入state
-    //   setCurrentData(result.data.data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+  // 點擊升降冪
+  const compare = {
+    Games: "games_played",
+    Points: "points_per_game",
+    Rebounds: "rebounds_per_game",
+    Assists: "assists_per_game",
+    Steals: "steals_per_game",
+    Blocks: "blocks_per_game",
+  };
+
+  const [orderType, setOrderType] = useState("ASC");
+  const handleAscDesc = async (type) => {
+    // toggle 升降冪
+    setOrderType(orderType === "DESC" ? "ASC" : "DESC");
+
+    // 改變網址參數
+    navigate(
+      `/?page=${page}&perPage=${perPage}${
+        team_name ? `&team_name=${team_name}` : ""
+      }${keywords ? `&keywords=${keywords}` : ""}${
+        compare[type] ? `&order_by=${compare[type]}` : ""
+      }${orderType ? `&order_type=${orderType}` : ""}`
+    );
   };
 
   return (
@@ -118,28 +150,63 @@ export const TableGroup = (props) => {
       <div className="TableGroup-con">
         <table className="Table">
           <tr className="Table-tr">
-            <th className="Table-th-large">Name</th>
-            <th>Team</th>
-            <th className="Table-th-large">TeamName</th>
-            <th>Games</th>
-            <th>MPG</th>
-            <th>FGA</th>
-            <th>FGM</th>
-            <th>FG%</th>
-            <th>FT%</th>
-            <th>3PA</th>
-            <th>3PM</th>
-            <th>3PT%</th>
-            <th>Points</th>
-            <th>ORebounds</th>
-            <th>DRebounds</th>
-            <th>Rebounds</th>
-            <th>Assists</th>
-            <th>Steals</th>
-            <th>Blocks</th>
-            <th>Turnovers</th>
-            <th>Efficiency</th>
-            <th>Details</th>
+            <th className="Table-th Table-th-large">Name</th>
+            <th className="Table-th">Team</th>
+            <th className="Table-th Table-th-large">TeamName</th>
+            <th
+              className="Table-th Table-th-btn"
+              onClick={() => handleAscDesc("Games")}
+            >
+              Games <RiArrowUpDownLine />
+            </th>
+            <th className="Table-th">MPG</th>
+            <th className="Table-th">FGA</th>
+            <th className="Table-th">FGM</th>
+            <th className="Table-th">FG%</th>
+            <th className="Table-th">FT%</th>
+            <th className="Table-th">3PA</th>
+            <th className="Table-th">3PM</th>
+            <th className="Table-th">3PT%</th>
+            <th
+              className="Table-th Table-th-btn"
+              onClick={() => handleAscDesc("Points")}
+            >
+              Points
+              <RiArrowUpDownLine />
+            </th>
+            <th className="Table-th">ORebounds</th>
+            <th className="Table-th">DRebounds</th>
+            <th
+              className="Table-th Table-th-btn"
+              onClick={() => handleAscDesc("Rebounds")}
+            >
+              Rebounds
+              <RiArrowUpDownLine />
+            </th>
+            <th
+              className="Table-th Table-th-btn"
+              onClick={() => handleAscDesc("Assists")}
+            >
+              Assists
+              <RiArrowUpDownLine />
+            </th>
+            <th
+              className="Table-th Table-th-btn"
+              onClick={() => handleAscDesc("Steals")}
+            >
+              Steals
+              <RiArrowUpDownLine />
+            </th>
+            <th
+              className="Table-th Table-th-btn"
+              onClick={() => handleAscDesc("Blocks")}
+            >
+              Blocks
+              <RiArrowUpDownLine />
+            </th>
+            <th className="Table-th">Turnovers</th>
+            <th className="Table-th">Efficiency</th>
+            <th className="Table-th">Details</th>
           </tr>
 
           {currentData.map((data, index) => (
@@ -177,7 +244,7 @@ export const TableGroup = (props) => {
 
       {/* 分頁元件 */}
       <Pagination
-        defaultPage={page}
+        defaultPage={page > totalPages || page <= 0 ? 1 : page}
         totalPages={totalPages}
         handleChangePage={handleChangePage}
       />

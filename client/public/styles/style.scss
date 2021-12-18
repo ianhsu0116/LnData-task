@@ -159,9 +159,16 @@ body {
         cursor: pointer;
       }
 
-      & tr th {
+      .Table-th {
         font-size: 1.15em;
         padding: 0.25em 0.5em;
+        min-width: 135px;
+      }
+
+      // 可升降冪的按鈕
+      .Table-th-btn {
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.3);
       }
 
       & tr > th,
@@ -201,11 +208,18 @@ body {
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.2);
+      }
     }
 
     .Pagination-group-itemActive {
       background: $fontColor;
       color: white;
+      &:hover {
+        background: $fontColor;
+      }
     }
   }
 }
@@ -268,16 +282,79 @@ body {
     min-height: 450px;
     background: white;
     position: relative;
+    border-radius: 10px;
+    overflow: hidden;
 
     // 上半部
     .Chart-main-top {
       background: $fontColor;
-      height: 5%;
+      //height: 5%;
       width: 100%;
       text-align: center;
       color: white;
       font-size: $fontSize;
+      padding: 0.5em;
       font-weight: 700;
+    }
+
+    .Chart-main-bottom {
+      height: 95%;
+      position: relative;
+      padding: 1em;
+
+      .Chart-main-bottom-table {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-around;
+
+        .Chart-main-bottom-tr {
+          margin: 0.2em 0;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .Chart-main-bottom-th {
+          width: 20%;
+          min-height: 44px;
+        }
+
+        // 進度條容器
+        .Chart-main-bottom-td {
+          width: 68%;
+          margin-left: 1em;
+          background: gainsboro;
+          position: relative;
+          border-radius: 5px;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          // 進度條本體
+          .Chart-main-bottom-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            //width: 20%;
+            height: 100%;
+            background: rgb(0, 110, 184);
+          }
+
+          // 顯示％的文字
+          .Chart-main-bottom-td-percent {
+          }
+        }
+
+        .Chart-main-bottom-td-num {
+          width: 10%;
+          text-align: center;
+        }
+
+        .totalPlayer {
+          font-size: 0.5em;
+        }
+      }
     }
   }
 }

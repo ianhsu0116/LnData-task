@@ -9,6 +9,8 @@ export const Pagination = (props) => {
   // 有就會拿到對應的值，沒有則return ""
   const team_name = new URLSearchParams(search).get("team_name") || "";
   const keywords = new URLSearchParams(search).get("keywords") || "";
+  const order_by = new URLSearchParams(search).get("order_by") || "";
+  const order_type = new URLSearchParams(search).get("order_type") || "";
 
   // 當前所在頁面
   const [currentPage, setCurrentPage] = useState(Number(defaultPage));
@@ -20,6 +22,10 @@ export const Pagination = (props) => {
   useEffect(() => {
     let newArr = [];
     let pageCopy = currentPage;
+
+    // 防止輸入的頁碼 > 總頁碼
+    // 若是trun, 直接導回去第一頁
+    if (currentPage > totalPages) pageCopy = 1;
 
     // 如果總頁數小於五
     if (totalPages <= 5) {
@@ -76,10 +82,28 @@ export const Pagination = (props) => {
     let newArr = [];
     let pageCopy = currentPage;
 
-    // 第一頁 || 最後一頁
+    // 防止輸入的頁碼 > 總頁碼
+    // 若是trun, 直接導回去第一頁
+    if (currentPage > totalPages) pageCopy = 1;
+
     if (currentPage === 1 || currentPage === totalPages) {
-      // 不做任何事，直接return
-      return;
+      // 第一頁 || 最後一頁
+      // 總頁數 <= 5，不做任何事，直接return
+      if (totalPages <= 5) return;
+
+      // 第一頁
+      if (currentPage === 1) {
+        for (let i = pageCopy; i <= pageCopy + 4; i++) {
+          newArr.push(i);
+        }
+      }
+
+      // 最後一頁
+      else if (currentPage === totalPages) {
+        for (let i = pageCopy - 4; i <= pageCopy; i++) {
+          newArr.push(i);
+        }
+      }
     }
 
     // 倒數第二頁
@@ -112,18 +136,32 @@ export const Pagination = (props) => {
   return (
     <div className="Pagination">
       <ul className="Pagination-group">
+        {/* 回到第一頁 */}
+        {currentPage > 3 && (
+          <Link
+            to={`/?page=${1}&perPage=15${
+              team_name ? `&team_name=${team_name}` : ""
+            }${keywords ? `&keywords=${keywords}` : ""}${
+              order_by ? `&order_by=${order_by}` : ""
+            }${order_type ? `&order_type=${order_type}` : ""}`}
+            className={`Pagination-group-item`}
+            className={`Pagination-group-item`}
+            onClick={() => {
+              setCurrentPage(1);
+              handleChangePage(1);
+            }}
+          >
+            ...
+          </Link>
+        )}
         {pageArr.map((i, index) => (
           <Link
             key={index}
-            to={
-              team_name && keywords
-                ? `/?page=${i}&perPage=15&team_name=${team_name}&keywords=${keywords}`
-                : team_name
-                ? `/?page=${i}&perPage=15&team_name=${team_name}`
-                : keywords
-                ? `/?page=${i}&perPage=15&keywords=${keywords}`
-                : `/?page=${i}&perPage=15`
-            }
+            to={`/?page=${i}&perPage=15${
+              team_name ? `&team_name=${team_name}` : ""
+            }${keywords ? `&keywords=${keywords}` : ""}${
+              order_by ? `&order_by=${order_by}` : ""
+            }${order_type ? `&order_type=${order_type}` : ""}`}
             className={`Pagination-group-item ${
               currentPage === i ? "Pagination-group-itemActive" : ""
             }`}
@@ -135,6 +173,24 @@ export const Pagination = (props) => {
             {i}
           </Link>
         ))}
+
+        {/* 跳到最後頁 */}
+        {currentPage < totalPages - 2 && (
+          <Link
+            to={`/?page=${totalPages}&perPage=15${
+              team_name ? `&team_name=${team_name}` : ""
+            }${keywords ? `&keywords=${keywords}` : ""}${
+              order_by ? `&order_by=${order_by}` : ""
+            }${order_type ? `&order_type=${order_type}` : ""}`}
+            className={`Pagination-group-item`}
+            onClick={() => {
+              setCurrentPage(totalPages);
+              handleChangePage(totalPages);
+            }}
+          >
+            ...
+          </Link>
+        )}
       </ul>
     </div>
   );

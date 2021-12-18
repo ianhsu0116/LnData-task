@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DataService from "../services/data.service";
 
 export const SearchGroup = (props) => {
   const {
-    setTotalPages,
-    setCurrentData,
     searchValue = {
       team_name: "",
       keywords: "",
@@ -14,18 +12,13 @@ export const SearchGroup = (props) => {
     setChartOpen,
   } = props;
 
-  // const [searchValue, setSearchValue] = useState({
-  //   team_name: "",
-  //   keywords: "",
-  // });
+  const navigate = useNavigate();
 
   // 當前拿到的所有資料
   const [totalTeams, setTotalTeams] = useState([]);
 
   // 初次render，跟DB拿取資料
   useState(async () => {
-    // console.log(page);
-    // console.log(perPage);
     try {
       // 拿所有球隊名稱
       let allTeams = await DataService.getAllTeams();
@@ -47,28 +40,12 @@ export const SearchGroup = (props) => {
     // console.log(searchValue);
     const { keywords, team_name } = searchValue;
 
-    if (keywords && team_name) {
-      window.location.href = `http://localhost:3000/?page=1&perPage=15&team_name=${team_name}&keywords=${keywords}`;
-    } else if (team_name) {
-      window.location.href = `http://localhost:3000/?page=1&perPage=15&team_name=${team_name}`;
-    } else if (keywords) {
-      window.location.href = `http://localhost:3000/?page=1&perPage=15&keywords=${keywords}`;
-    } else {
-      window.location.href = `http://localhost:3000/`;
-    }
-    // try {
-    //   let result = await DataService.search(searchValue);
-    //   //console.log(result);
+    let url = `/?page=1&perPage=15${
+      team_name ? `&team_name=${team_name}` : ""
+    }${keywords ? `&keywords=${keywords}` : ""}`;
 
-    //   // 放入state
-    //   setCurrentData(result.data.data);
-
-    //   // 計算總共需要幾頁
-    //   let { dataCount } = result.data.dataCount;
-    //   setTotalPages(Math.ceil(dataCount / 15));
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    // 導入新的網址
+    navigate(url);
   };
 
   return (

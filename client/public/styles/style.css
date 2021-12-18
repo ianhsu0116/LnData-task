@@ -181,9 +181,15 @@ body {
   cursor: pointer;
 }
 
-.TableGroup .TableGroup-con .Table tr th {
+.TableGroup .TableGroup-con .Table .Table-th {
   font-size: 1.15em;
   padding: 0.25em 0.5em;
+  min-width: 135px;
+}
+
+.TableGroup .TableGroup-con .Table .Table-th-btn {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .TableGroup .TableGroup-con .Table tr > th,
@@ -240,9 +246,17 @@ body {
   cursor: pointer;
 }
 
+.Pagination .Pagination-group .Pagination-group-item:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 .Pagination .Pagination-group .Pagination-group-itemActive {
   background: #666666;
   color: white;
+}
+
+.Pagination .Pagination-group .Pagination-group-itemActive:hover {
+  background: #666666;
 }
 
 .PlayerDetail {
@@ -307,15 +321,86 @@ body {
   min-height: 450px;
   background: white;
   position: relative;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .Chart .Chart-main .Chart-main-top {
   background: #666666;
-  height: 5%;
   width: 100%;
   text-align: center;
   color: white;
   font-size: 1em;
+  padding: 0.5em;
   font-weight: 700;
+}
+
+.Chart .Chart-main .Chart-main-bottom {
+  height: 95%;
+  position: relative;
+  padding: 1em;
+}
+
+.Chart .Chart-main .Chart-main-bottom .Chart-main-bottom-table {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.Chart .Chart-main .Chart-main-bottom .Chart-main-bottom-table .Chart-main-bottom-tr {
+  margin: 0.2em 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.Chart .Chart-main .Chart-main-bottom .Chart-main-bottom-table .Chart-main-bottom-th {
+  width: 20%;
+  min-height: 44px;
+}
+
+.Chart .Chart-main .Chart-main-bottom .Chart-main-bottom-table .Chart-main-bottom-td {
+  width: 68%;
+  margin-left: 1em;
+  background: gainsboro;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Chart .Chart-main .Chart-main-bottom .Chart-main-bottom-table .Chart-main-bottom-td .Chart-main-bottom-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #006eb8;
+}
+
+.Chart .Chart-main .Chart-main-bottom .Chart-main-bottom-table .Chart-main-bottom-td-num {
+  width: 10%;
+  text-align: center;
+}
+
+.Chart .Chart-main .Chart-main-bottom .Chart-main-bottom-table .totalPlayer {
+  font-size: 0.5em;
 }
 /*# sourceMappingURL=style.css.map */

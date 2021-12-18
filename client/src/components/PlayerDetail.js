@@ -36,9 +36,6 @@ for (let i in compare) {
 export const PlayerDetail = () => {
   const location = useLocation();
 
-  // 球員id
-  const playerId = location.pathname.split("/").pop();
-
   // 球員詳細資料
   const playerData = location.state.playerData;
 

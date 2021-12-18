@@ -46,7 +46,6 @@ router.get("/search", async (req, res) => {
   // 如果這次傳來的是all(等於不依照隊伍搜尋)，就變成undefined
   team_name = team_name === "all" ? undefined : team_name;
 
-  console.log(team_name);
   try {
     let result;
     let dataCount;
@@ -87,6 +86,18 @@ router.get("/search", async (req, res) => {
       dataCount = await connection.queryAsync(
         "SELECT COUNT(id) dataCount FROM players WHERE team_name = ?",
         [team_name]
+      );
+    }
+    // 單純排序 不搜尋
+    else {
+      result = await connection.queryAsync(
+        `SELECT * FROM players  ORDER BY ${order_by} ${order_type} LIMIT ? OFFSET ?`,
+        [Number(perPage), (Number(page) - 1) * perPage]
+      );
+
+      // 計算總共有幾筆 (分頁用)
+      dataCount = await connection.queryAsync(
+        "SELECT COUNT(id) dataCount FROM players"
       );
     }
 
