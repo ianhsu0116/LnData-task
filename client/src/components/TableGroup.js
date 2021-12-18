@@ -110,7 +110,7 @@ export const TableGroup = (props) => {
 
   // 點擊換頁
   const handleChangePage = async (pages) => {
-    console.log(page);
+    // console.log(page);
   };
 
   // 點擊升降冪
@@ -152,7 +152,9 @@ export const TableGroup = (props) => {
             <th className="Table-th">Team</th>
             <th className="Table-th Table-th-large">TeamName</th>
             <th
-              className="Table-th Table-th-btn"
+              className={`Table-th Table-th-btn ${
+                order_by === compare["Games"] ? "Table-th-btnActive" : ""
+              }`}
               onClick={() => handleAscDesc("Games")}
             >
               Games <RiArrowUpDownLine />
@@ -166,7 +168,9 @@ export const TableGroup = (props) => {
             <th className="Table-th">3PM</th>
             <th className="Table-th">3PT%</th>
             <th
-              className="Table-th Table-th-btn"
+              className={`Table-th Table-th-btn ${
+                order_by === compare["Points"] ? "Table-th-btnActive" : ""
+              }`}
               onClick={() => handleAscDesc("Points")}
             >
               Points
@@ -175,28 +179,36 @@ export const TableGroup = (props) => {
             <th className="Table-th">ORebounds</th>
             <th className="Table-th">DRebounds</th>
             <th
-              className="Table-th Table-th-btn"
+              className={`Table-th Table-th-btn ${
+                order_by === compare["Rebounds"] ? "Table-th-btnActive" : ""
+              }`}
               onClick={() => handleAscDesc("Rebounds")}
             >
               Rebounds
               <RiArrowUpDownLine />
             </th>
             <th
-              className="Table-th Table-th-btn"
+              className={`Table-th Table-th-btn ${
+                order_by === compare["Assists"] ? "Table-th-btnActive" : ""
+              }`}
               onClick={() => handleAscDesc("Assists")}
             >
               Assists
               <RiArrowUpDownLine />
             </th>
             <th
-              className="Table-th Table-th-btn"
+              className={`Table-th Table-th-btn ${
+                order_by === compare["Steals"] ? "Table-th-btnActive" : ""
+              }`}
               onClick={() => handleAscDesc("Steals")}
             >
               Steals
               <RiArrowUpDownLine />
             </th>
             <th
-              className="Table-th Table-th-btn"
+              className={`Table-th Table-th-btn ${
+                order_by === compare["Blocks"] ? "Table-th-btnActive" : ""
+              }`}
               onClick={() => handleAscDesc("Blocks")}
             >
               Blocks

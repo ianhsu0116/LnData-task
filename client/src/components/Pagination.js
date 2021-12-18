@@ -13,10 +13,15 @@ export const Pagination = (props) => {
   const order_type = new URLSearchParams(search).get("order_type") || "";
 
   // 當前所在頁面
-  const [currentPage, setCurrentPage] = useState(Number(defaultPage));
+  const [currentPage, setCurrentPage] = useState(1);
 
   // 要顯示的按鈕數量
   const [pageArr, setPageArr] = useState([1]);
+
+  // 當網址列的頁碼改變，就重設currentPage，以觸發下方的effect
+  useEffect(() => {
+    setCurrentPage(Number(defaultPage));
+  }, [defaultPage]);
 
   // 當 totalPages 改變時
   useEffect(() => {
@@ -82,6 +87,7 @@ export const Pagination = (props) => {
     let newArr = [];
     let pageCopy = currentPage;
 
+    console.log(pageCopy);
     // 防止輸入的頁碼 > 總頁碼
     // 若是trun, 直接導回去第一頁
     if (currentPage > totalPages) pageCopy = 1;
