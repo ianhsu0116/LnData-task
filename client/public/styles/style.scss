@@ -157,6 +157,9 @@ body {
       // 球員細節按鈕
       .Table-detail {
         cursor: pointer;
+        & svg {
+          fill: $activeColor;
+        }
       }
 
       .Table-th {

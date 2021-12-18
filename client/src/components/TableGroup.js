@@ -143,8 +143,6 @@ export const TableGroup = (props) => {
       <SearchGroup
         searchValue={searchValue}
         setSearchValue={setSearchValue}
-        setTotalPages={setTotalPages}
-        setCurrentData={setCurrentData}
         setChartOpen={setChartOpen}
       />
       <div className="TableGroup-con">

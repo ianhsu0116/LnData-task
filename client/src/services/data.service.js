@@ -1,9 +1,5 @@
 import axios from "axios";
-// import dotenv from "dotenv";
-// import { API_URL } from "../config/config";
-// dotenv.config();
-
-let API_URL = "http://localhost:9999/api";
+import { API_URL } from "../config/config";
 
 class DataService {
   // 依照頁碼拿到對應資料
@@ -31,23 +27,6 @@ class DataService {
 
   // 依照搜尋+頁碼拿到對應資料
   search({ keywords, team_name, order_by, order_type, page, perPage }) {
-    // console.log(team_name);
-    // if (page && perPage) {
-    //   return axios.get(
-    //     `${API_URL}/players/search?name=${keywords}&team_name=${team_name}&page=${page}&perPage=${perPage}`,
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   );
-    // } else {
-    //   return axios.get(
-    //     `${API_URL}/players/search?name=${keywords}&team_name=${team_name}`,
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   );
-    // }
-
     return axios.get(
       `${API_URL}/players/search?page=${page}&perPage=${perPage}${
         team_name ? `&team_name=${team_name}` : ""
@@ -66,13 +45,6 @@ class DataService {
       withCredentials: true,
     });
   }
-
-  // // 升降冪
-  // getAscDescData(type, page) {
-  //   return axios.get(`${API_URL}/players/ascDesc`, {
-  //     withCredentials: true,
-  //   });
-  // }
 }
 
 export default new DataService();

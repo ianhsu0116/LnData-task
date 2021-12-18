@@ -181,6 +181,10 @@ body {
   cursor: pointer;
 }
 
+.TableGroup .TableGroup-con .Table .Table-detail svg {
+  fill: #ffa639;
+}
+
 .TableGroup .TableGroup-con .Table .Table-th {
   font-size: 1.15em;
   padding: 0.25em 0.5em;
