@@ -136,6 +136,7 @@ body {
     width: $width;
     max-width: $max-width;
     overflow-y: scroll;
+    margin: 0 auto;
     .Table {
       min-width: 100%;
       // max-width: $max-width;
@@ -179,7 +180,11 @@ body {
 // Pagination (分頁元件)
 .Pagination {
   display: flex;
-  margin: 1em 0;
+  width: 97%;
+  max-width: 1440px;
+  margin: 1rem auto;
+  display: flex;
+  justify-content: flex-end;
   .Pagination-group {
     display: flex;
     align-items: center;
@@ -201,6 +206,78 @@ body {
     .Pagination-group-itemActive {
       background: $fontColor;
       color: white;
+    }
+  }
+}
+
+// 球員詳細資料頁
+.PlayerDetail {
+  width: 100vw;
+  padding: 1em;
+
+  .PlayerDetail-header {
+    font-size: 2em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 3px solid;
+
+    .PlayerDetail-header-avatar {
+      width: 3.7vw;
+      height: 3.7vw;
+      max-width: 70px;
+      max-height: 70px;
+      margin-right: 0.25em;
+    }
+  }
+
+  .PlayerDetail-main {
+    //font-size: 2em;
+    .PlayerDetail-main-table {
+      .PlayerDetail-main-tr {
+        .PlayerDetail-main-th {
+          text-align: end;
+        }
+        .PlayerDetail-main-td {
+          min-width: 300px;
+          padding-left: 1em;
+        }
+      }
+    }
+  }
+}
+
+// 圖表
+.Chart {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .Chart-main {
+    width: 45vw;
+    height: 45vw;
+    min-width: 450px;
+    min-height: 450px;
+    background: white;
+    position: relative;
+
+    // 上半部
+    .Chart-main-top {
+      background: $fontColor;
+      height: 5%;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: $fontSize;
+      font-weight: 700;
     }
   }
 }

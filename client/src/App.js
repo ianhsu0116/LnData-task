@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 
 import { Navbar } from "./components/Navbar";
 import { TableGroup } from "./components/TableGroup";
+import { PlayerDetail } from "./components/PlayerDetail";
 
 function App() {
   // 所有資料總共需要幾頁
@@ -26,6 +27,7 @@ function App() {
             />
           }
         ></Route>
+        <Route path="/players/:id" exact element={<PlayerDetail />}></Route>
       </Routes>
     </Router>
   );

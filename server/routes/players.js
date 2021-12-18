@@ -46,6 +46,7 @@ router.get("/search", async (req, res) => {
   // 如果這次傳來的是all(等於不依照隊伍搜尋)，就變成undefined
   team_name = team_name === "all" ? undefined : team_name;
 
+  console.log(team_name);
   try {
     let result;
     let dataCount;
@@ -95,6 +96,39 @@ router.get("/search", async (req, res) => {
       .send({ success: true, data: result, dataCount: dataCount[0] });
   } catch (error) {
     res.status(400).send({ success: false, errorMsg: error });
+  }
+});
+
+// 拿到所有球員<=15人的球隊
+router.get("/teamLess15Players", async (req, res) => {
+  try {
+    // 先拿到所有player
+    let players = await connection.queryAsync(
+      "SELECT id, team_name FROM players"
+    );
+
+    // 依照隊伍排好
+    let sortedPlayers = {};
+    players.forEach((item) => {
+      if (sortedPlayers[item.team_name]) {
+        sortedPlayers[item.team_name].push(item);
+      } else {
+        sortedPlayers[item.team_name] = [item];
+      }
+    });
+
+    // 排除所有沒超過15人的隊伍
+    let finalPlayer = {};
+    for (let i in sortedPlayers) {
+      if (sortedPlayers[i].length <= 15) {
+        finalPlayer[i] = sortedPlayers[i];
+      }
+    }
+
+    // 送回前端
+    res.status(200).send({ success: true, data: finalPlayer });
+  } catch (error) {
+    console.log(error);
   }
 });
 

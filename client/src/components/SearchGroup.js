@@ -11,6 +11,7 @@ export const SearchGroup = (props) => {
       keywords: "",
     },
     setSearchValue,
+    setChartOpen,
   } = props;
 
   // const [searchValue, setSearchValue] = useState({
@@ -46,19 +47,28 @@ export const SearchGroup = (props) => {
     // console.log(searchValue);
     const { keywords, team_name } = searchValue;
 
-    try {
-      let result = await DataService.search(searchValue);
-      //console.log(result);
-
-      // 放入state
-      setCurrentData(result.data.data);
-
-      // 計算總共需要幾頁
-      let { dataCount } = result.data.dataCount;
-      setTotalPages(Math.ceil(dataCount / 15));
-    } catch (error) {
-      console.log(error);
+    if (keywords && team_name) {
+      window.location.href = `http://localhost:3000/?page=1&perPage=15&team_name=${team_name}&keywords=${keywords}`;
+    } else if (team_name) {
+      window.location.href = `http://localhost:3000/?page=1&perPage=15&team_name=${team_name}`;
+    } else if (keywords) {
+      window.location.href = `http://localhost:3000/?page=1&perPage=15&keywords=${keywords}`;
+    } else {
+      window.location.href = `http://localhost:3000/`;
     }
+    // try {
+    //   let result = await DataService.search(searchValue);
+    //   //console.log(result);
+
+    //   // 放入state
+    //   setCurrentData(result.data.data);
+
+    //   // 計算總共需要幾頁
+    //   let { dataCount } = result.data.dataCount;
+    //   setTotalPages(Math.ceil(dataCount / 15));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
@@ -91,7 +101,15 @@ export const SearchGroup = (props) => {
       </div>
 
       <div className="SearchGroupShowCharts">
-        <button className="SearchGroupShowCharts-btn">Show Charts</button>
+        <button
+          className="SearchGroupShowCharts-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            setChartOpen(true);
+          }}
+        >
+          Show Charts
+        </button>
       </div>
     </div>
   );

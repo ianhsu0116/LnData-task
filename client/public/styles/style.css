@@ -159,6 +159,7 @@ body {
   width: 97%;
   max-width: 1440px;
   overflow-y: scroll;
+  margin: 0 auto;
 }
 
 .TableGroup .TableGroup-con .Table {
@@ -199,7 +200,13 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 1em 0;
+  width: 97%;
+  max-width: 1440px;
+  margin: 1rem auto;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .Pagination .Pagination-group {
@@ -236,5 +243,79 @@ body {
 .Pagination .Pagination-group .Pagination-group-itemActive {
   background: #666666;
   color: white;
+}
+
+.PlayerDetail {
+  width: 100vw;
+  padding: 1em;
+}
+
+.PlayerDetail .PlayerDetail-header {
+  font-size: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 3px solid;
+}
+
+.PlayerDetail .PlayerDetail-header .PlayerDetail-header-avatar {
+  width: 3.7vw;
+  height: 3.7vw;
+  max-width: 70px;
+  max-height: 70px;
+  margin-right: 0.25em;
+}
+
+.PlayerDetail .PlayerDetail-main .PlayerDetail-main-table .PlayerDetail-main-tr .PlayerDetail-main-th {
+  text-align: end;
+}
+
+.PlayerDetail .PlayerDetail-main .PlayerDetail-main-table .PlayerDetail-main-tr .PlayerDetail-main-td {
+  min-width: 300px;
+  padding-left: 1em;
+}
+
+.Chart {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Chart .Chart-main {
+  width: 45vw;
+  height: 45vw;
+  min-width: 450px;
+  min-height: 450px;
+  background: white;
+  position: relative;
+}
+
+.Chart .Chart-main .Chart-main-top {
+  background: #666666;
+  height: 5%;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 1em;
+  font-weight: 700;
 }
 /*# sourceMappingURL=style.css.map */
